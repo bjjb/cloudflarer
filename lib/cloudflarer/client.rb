@@ -37,7 +37,7 @@ module Cloudflarer
     private
 
     def respond(&block)
-      HipsterHash[JSON.parse(yield.body)]
+      JSON.parse(yield.body)
     end
 
     Error = Class.new(Exception)

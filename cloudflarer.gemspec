@@ -25,8 +25,9 @@ DESC
   spec.require_paths = ['lib']
 
   spec.add_dependency 'faraday', '~> 0.9.2'
-  spec.add_dependency 'hipsterhash', '~> 0.0.4'
-  spec.add_dependency 'ordu', '~> 0.0.1'
+  spec.add_dependency 'hipsterhash', '>= 0.0.4'
+  spec.add_dependency 'ordu', '>= 0.0.4'
+  spec.add_dependency 'mustache', '~> 1.0'
   spec.add_development_dependency 'bundler', '~> 1.12'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'minitest', '~> 5.0'
