@@ -21,6 +21,12 @@ module Cloudflarer
     option('-q', '--[no-]quiet', 'print less information') do |q|
       $quiet = q
     end
+    option('-p', '--page N', Integer, 'specify a page') do |p|
+      $page = p
+    end
+    option('-P', '--per-page N', Integer, 'results per page') do |pp|
+      $per_page = pp
+    end
     option('-D', '--[no-]debug', 'print lots of internal info') do |d|
       $debug = d
     end
@@ -88,7 +94,7 @@ module Cloudflarer
 
       action do
         template('{{id}} {{type}} {{name}} {{content}}')
-        zone { |z| show("zones/#{z}/dns_records") }
+        zone { |z| list("zones/#{z}/dns_records") }
       end
     end
 
@@ -129,14 +135,14 @@ module Cloudflarer
       output { delete(path) }
     end
       
-    # Gets and lists multiple resources
+    # Gets and lists multiple resources, with pagination
     def list(path)
       output { get(path) }
     end
 
     # Gets a resource
     def get(path)
-      time("GET #{path}") { Cloudflarer.new.get(path) }
+      time("GET #{path}") { Cloudflarer.new.get(paginate(path)) }
     end
 
     # Updates a resource (using params)
@@ -152,6 +158,14 @@ module Cloudflarer
     # Destroys a resource
     def delete(path)
       time("DELETE #{path}") { Cloudflarer.new.delete(path) }
+    end
+
+    # Add pagination to the path
+    def paginate(path)
+      p = "page=#{$page}" if $page
+      pp = "per_page=#{$per_page}" if $per_page
+      pagination = [p, pp].compact.reject(&:empty?).join('&')
+      [path, pagination].compact.reject(&:empty?).join('?')
     end
 
     # Times the block, which should return something with a status
