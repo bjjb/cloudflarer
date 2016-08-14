@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
 A Ruby API library for managing your cloudflare domains and settings. Comes
 with a simple command-line tool.
 DESC
-  spec.homepage      = "http://bjjb.gitlab.com/cloudflarer"
+  spec.homepage      = "http://bjjb.github.io/cloudflarer"
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
