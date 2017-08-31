@@ -177,7 +177,6 @@ module Cloudflarer
       return object.to_yaml if template == 'yaml'
       return object.to_json if template == 'json'
       return render(template, object) if template.is_a?(String)
-      return tablualte { yield } if template.nil?
       raise "Invalid template: #{template}"
     end
 

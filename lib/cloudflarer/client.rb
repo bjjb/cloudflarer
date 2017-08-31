@@ -39,7 +39,5 @@ module Cloudflarer
     def respond(&block)
       JSON.parse(yield.body)
     end
-
-    Error = Class.new(Exception)
   end
 end
